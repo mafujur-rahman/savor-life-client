@@ -13,13 +13,14 @@ const Register = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name,email, password);
+        console.log(name, email, password);
     }
 
     return (
         <div>
             <div className="hero  min-h-screen" style={{ backgroundImage: `url("/login-pic.png")` }}>
-                <div className="hero-content flex-col-reverse">
+                <div className="hero-content flex-col">
+                    <h3 className="text-center text-3xl font-extrabold text-white">Register Here</h3>
                     <div className="card shrink-0 w-full md:w-[400px] shadow-2xl shadow-black">
                         <form onSubmit={handleRegister} className="card-body">
                             <div className="form-control">
