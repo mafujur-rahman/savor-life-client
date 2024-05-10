@@ -1,7 +1,16 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../../Context/AuthProvider";
+import { Tooltip } from "react-tooltip";
 
 
 const NavigationBar = () => {
+  const {user, logOut} = useContext(AuthContext);
+  const handleSignOut = () => {
+    logOut()
+        .then()
+        .catch()
+}
   return (
     <div className="navbar bg-base-100 mt-10 mx-auto container ">
       <div className="navbar-start">
@@ -124,9 +133,33 @@ const NavigationBar = () => {
           ><li><a> Wishlist</a></li></NavLink>
         </ul>
       </div>
-      <div className="navbar-end">
-        <Link to="/log-in"><a className="btn bg-[#e4bb55] text-[#32474c]">Log in</a></Link>
+      <div className="navbar-end"> {
+        user ?
+          <>
+            <a
+              data-tooltip-id="my-tooltip-inline"
+              data-tooltip-content={user.displayName}
+            >
+              <div className="avatar online mr-5">
+                <div className="w-16 rounded-full">
+                  <img src={user?.photoURL} />
+                </div>
+              </div>
+            </a>
+            <Tooltip
+              id="my-tooltip-inline"
+              style={{ backgroundColor: "#113065", color: "#fff" }}
+            />
 
+            <a onClick={handleSignOut} className="btn bg-[#113065] text-white">Log Out</a>
+          </>
+
+          :
+          <>
+            <Link to="/log-in"><a className="btn bg-[#113065] text-white">Log in</a></Link>
+            <Link to="/register"><a className="btn bg-[#113065] text-white">Register</a></Link>
+          </>
+      }
       </div>
     </div>
   );
