@@ -1,11 +1,63 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { AuthContext } from "../../../Context/AuthProvider";
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const LogIn = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const {signIn} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    const ghProvider = new GithubAuthProvider();
+
+
+
+    const handleGoogleLogIn = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+            console.log(result);
+            Swal.fire({
+                icon: "success",
+                title: "Successfully Logged in",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            setTimeout(() => {
+                navigate(location?.state? location.state : "/");
+            }, 2000);
+        } catch (error) {
+            console.error(error);
+            Swal.fire({
+                icon: "error",
+                text: "Failed to login",
+              });
+        }
+    }
+
+    const handleGithubLogIn = () => {
+        signInWithPopup(auth, ghProvider)
+            .then(result => {
+                console.log(result)
+                Swal.fire({
+                    icon: "success",
+                    title: "Successfully Logged in",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                setTimeout(() => {
+                    navigate(location?.state ? location.state : "/")
+                }, 2000);
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
 
     const handleLogIn = (e) => {
         e.preventDefault();
@@ -13,6 +65,26 @@ const LogIn = () => {
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+        signIn(email, password)
+            .then(result => {
+                console.log(result)
+                Swal.fire({
+                    icon: "success",
+                    title: "Successfully Logged in",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                setTimeout(() => {
+                    navigate(location?.state ? location.state : "/")
+                }, 2000);
+            })
+            .catch(error => {
+                console.error(error)
+                Swal.fire({
+                    icon: "error",
+                    text: "User not found",
+                  });
+            })
     }
 
     return (
@@ -48,8 +120,8 @@ const LogIn = () => {
                                 <label className="label">
                                     <span className="label-text text-center text-white">Or</span>
                                 </label>
-                                <button className="btn bg-orange-600 border-none text-white"> <BsGoogle /> Sign in with Google </button>
-                                <button className="btn bg-black border-none text-white"> <BsGithub /> Sign in with Github </button>
+                                <button onClick={handleGoogleLogIn} className="btn bg-orange-600 border-none text-white"> <BsGoogle /> Sign in with Google </button>
+                                <button onClick={handleGithubLogIn} className="btn bg-black border-none text-white"> <BsGithub /> Sign in with Github </button>
                             </div>
                             <p className="text-center text-white">Do not have an account?</p>
                             <Link to="/register"><p className="text-xl font-medium text-white underline text-center">Register</p></Link>
