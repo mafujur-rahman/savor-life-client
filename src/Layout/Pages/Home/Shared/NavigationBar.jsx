@@ -151,13 +151,13 @@ const NavigationBar = () => {
               style={{ backgroundColor: "#113065", color: "#fff" }}
             />
 
-            <a onClick={handleSignOut} className="btn bg-[#113065] text-white">Log Out</a>
+            <a onClick={handleSignOut} className="btn bg-[#e4bb55] text-[#0e191b]">Log Out</a>
           </>
 
           :
           <>
-            <Link to="/log-in"><a className="btn bg-[#113065] text-white">Log in</a></Link>
-            <Link to="/register"><a className="btn bg-[#113065] text-white">Register</a></Link>
+            <Link to="/log-in"><a className="btn bg-[#e4bb55] text-[#0e191b]">Log in</a></Link>
+            <Link to="/register"><a className="btn bg-[#e4bb55] text-[#0e191b]">Register</a></Link>
           </>
       }
       </div>
