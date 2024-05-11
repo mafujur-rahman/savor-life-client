@@ -2,9 +2,9 @@
 import PropTypes from 'prop-types';
 
 const RecentBlog = ({ data }) => {
-    const { _id, img, title, shortDescription } = data;
+    const {  img, title, shortDescription } = data;
     return (
-        <div className="card w-96 bg-[#fff5dc]">
+        <div className="card w-full md:w-auto lg:w-96 bg-[#fff5dc] rounded-2xl">
             <figure><img src={img} alt="Shoes" /></figure>
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>

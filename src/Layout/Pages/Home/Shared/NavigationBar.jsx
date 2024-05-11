@@ -12,7 +12,7 @@ const NavigationBar = () => {
       .catch()
   }
   return (
-    <div className="bg-[#ddd0b0]">
+    <div className="bg-[#1C4C5C]">
       <div className="navbar mx-auto container ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -25,7 +25,7 @@ const NavigationBar = () => {
                 style={({ isActive }) => {
                   return {
                     backgroundColor: isActive ? "#e4bb55" : "",
-                    color: isActive ? "#32474c" : "#020617",
+                    color: isActive ? "#32474c" : "#ffff",
                     padding: isActive ? "5px" : "",
                     borderRadius: isActive ? "8px" : ""
                   };
@@ -37,7 +37,7 @@ const NavigationBar = () => {
                 style={({ isActive }) => {
                   return {
                     backgroundColor: isActive ? "#e4bb55" : "",
-                    color: isActive ? "#32474c" : "#020617",
+                    color: isActive ? "#32474c" : "#ffff",
                     padding: isActive ? "5px" : "",
                     borderRadius: isActive ? "8px" : ""
                   };
@@ -47,7 +47,7 @@ const NavigationBar = () => {
                 style={({ isActive }) => {
                   return {
                     backgroundColor: isActive ? "#e4bb55" : "",
-                    color: isActive ? "#32474c" : "#020617",
+                    color: isActive ? "#32474c" : "#ffff",
                     padding: isActive ? "5px" : "",
                     borderRadius: isActive ? "8px" : ""
                   };
@@ -57,7 +57,7 @@ const NavigationBar = () => {
                 style={({ isActive }) => {
                   return {
                     backgroundColor: isActive ? "#e4bb55" : "",
-                    color: isActive ? "#32474c" : "#020617",
+                    color: isActive ? "#32474c" : "#ffff",
                     padding: isActive ? "5px" : "",
                     borderRadius: isActive ? "8px" : ""
                   };
@@ -67,7 +67,7 @@ const NavigationBar = () => {
                 style={({ isActive }) => {
                   return {
                     backgroundColor: isActive ? "#e4bb55" : "",
-                    color: isActive ? "#32474c" : "#020617",
+                    color: isActive ? "#32474c" : "#ffff",
                     padding: isActive ? "5px" : "",
                     borderRadius: isActive ? "8px" : ""
                   };
@@ -84,7 +84,7 @@ const NavigationBar = () => {
               style={({ isActive }) => {
                 return {
                   backgroundColor: isActive ? "#e4bb55" : "",
-                  color: isActive ? "#32474c" : "#020617",
+                  color: isActive ? "#32474c" : "#ffff",
                   padding: isActive ? "5px" : "",
                   borderRadius: isActive ? "8px" : ""
                 };
@@ -96,7 +96,7 @@ const NavigationBar = () => {
               style={({ isActive }) => {
                 return {
                   backgroundColor: isActive ? "#e4bb55" : "",
-                  color: isActive ? "#32474c" : "#020617",
+                  color: isActive ? "#32474c" : "#ffff",
                   padding: isActive ? "5px" : "",
                   borderRadius: isActive ? "8px" : ""
                 };
@@ -106,7 +106,7 @@ const NavigationBar = () => {
               style={({ isActive }) => {
                 return {
                   backgroundColor: isActive ? "#e4bb55" : "",
-                  color: isActive ? "#32474c" : "#020617",
+                  color: isActive ? "#32474c" : "#ffff",
                   padding: isActive ? "5px" : "",
                   borderRadius: isActive ? "8px" : ""
                 };
@@ -116,7 +116,7 @@ const NavigationBar = () => {
               style={({ isActive }) => {
                 return {
                   backgroundColor: isActive ? "#e4bb55" : "",
-                  color: isActive ? "#32474c" : "#020617",
+                  color: isActive ? "#32474c" : "#ffff",
                   padding: isActive ? "5px" : "",
                   borderRadius: isActive ? "8px" : ""
                 };
@@ -126,7 +126,7 @@ const NavigationBar = () => {
               style={({ isActive }) => {
                 return {
                   backgroundColor: isActive ? "#e4bb55" : "",
-                  color: isActive ? "#32474c" : "#020617",
+                  color: isActive ? "#32474c" : "#ffff",
                   padding: isActive ? "5px" : "",
                   borderRadius: isActive ? "8px" : ""
                 };
