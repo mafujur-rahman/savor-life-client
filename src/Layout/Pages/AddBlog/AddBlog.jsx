@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Select from 'react-dropdown-select';
+import Swal from 'sweetalert2';
 
 const AddBlog = () => {
     const [title, setTitle] = useState('');
@@ -17,7 +18,30 @@ const AddBlog = () => {
     const handleAddBlog = () => {
         const newBlog = { img, title, shortDescription, longDescription, category };
         console.log(newBlog);
+
+        // send data to the server
+        fetch('http://localhost:5000/blogs',{
+            method:"POST",
+            headers:{
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newBlog)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.insertedId){
+                Swal.fire({
+                    icon: "success",
+                    title: "Successfully add a new blog",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }
+        })
     };
+
+
 
     const handleCategoryChange = (values) => {
         const selectedLabel = values.map((option) => option.label)[0]; 
