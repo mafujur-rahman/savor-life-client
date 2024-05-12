@@ -5,7 +5,7 @@ const CreationTips = () => {
         <div className="bg-[#ddd0b0] text-center py-10">
             <h2 className="text-3xl md:text-4xl font-bold md:font-extrabold text-center">Content Creation Tips</h2>
             <p className="my-5 text-gray-600 text-center">The goal is to uncover unique angles, insights, or solutions that resonate with <br /> your audience and set your blog apart from others in your niche.</p>
-            <div className="join join-vertical mx-auto w-[1000px] container ">
+            <div className="join join-vertical mx-auto w-fit md:w-fit lg:w-[1000px] container ">
                 <div className="collapse collapse-arrow join-item border border-black bg-[#1C4C5C]">
                     <input type="radio" name="my-accordion-4" defaultChecked />
                     <div className="collapse-title text-xl text-white font-medium">

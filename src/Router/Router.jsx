@@ -6,6 +6,7 @@ import Home from "../Layout/Pages/Home/Home";
 import LogIn from "../Layout/Pages/LogIn/LogIn";
 import Register from "../Layout/Pages/Register/Register";
 import AddBlog from "../Layout/Pages/AddBlog/AddBlog";
+import Details from "../Layout/Pages/Details/Details";
 
   const router = createBrowserRouter([
     {
@@ -27,6 +28,11 @@ import AddBlog from "../Layout/Pages/AddBlog/AddBlog";
         {
           path:"/add-blog",
           element:<AddBlog></AddBlog>
+        },
+        {
+          path:"/details/:id",
+          element:<Details></Details>,
+          loader: ({params})=>fetch(`http://localhost:5000/blogs/${params.id}`),
         }
       ]
     },
