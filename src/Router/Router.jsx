@@ -11,6 +11,7 @@ import Wishlist from "../Layout/Pages/Wishlist/Wishlist";
 import ErrorPage from "../Layout/Pages/ErrorPage";
 import AllBlogs from "../Layout/Pages/AllBlogs/AllBlogs";
 import FeaturedBlogs from "../Layout/Pages/FeaturedBlogs/FeaturedBlogs";
+import UpdateBlog from "../Layout/Pages/UpdateBlog/UpdateBlog";
 
   const router = createBrowserRouter([
     {
@@ -46,12 +47,15 @@ import FeaturedBlogs from "../Layout/Pages/FeaturedBlogs/FeaturedBlogs";
         {
           path:"/all-blogs",
           element:<AllBlogs></AllBlogs>,
-          loader: () => fetch('http://localhost:5000/blogs'),
         },
         {
           path:"/featured-blogs",
           element:<FeaturedBlogs></FeaturedBlogs>
-          
+        },
+        {
+          path:'/update-blog/:id',
+          element:<UpdateBlog></UpdateBlog>,
+          loader:({params})=>fetch(`http://localhost:5000/blogs/${params.id}`),
         }
       ]
     },

@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
-const AllBlog = ({blog}) => {
-    const { _id, title, category, shortDescription, img, } = blog;
+const AllBlog = ({ blog }) => {
+    const { _id, title, category, shortDescription, img } = blog;
 
-    const handleWishlist =() =>{
-
-        const newWishlist = {_id,  img, title, shortDescription, category}
-         // send data to the server
-         fetch('http://localhost:5000/wishlist-items', {
+    const handleWishlist = () => {
+        const newWishlist = { _id, img, title, shortDescription, category };
+        // send data to the server
+        fetch('http://localhost:5000/wishlist-items', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
@@ -20,24 +19,27 @@ const AllBlog = ({blog}) => {
                 console.log(data);
             })
     }
+
     return (
-        <div>
-            <div className="card card-side bg-[#1C4C5C] text-white mb-8 w-full shadow-xl mx-auto container">
-                <figure><img src={img} className="w-40 h-40 pl-8 " /></figure>
-                <div className="card-body">
-                    <h2 className="card-title">{title}</h2>
-                    <p>{shortDescription}</p>
-                    <p>Category: {category}</p>
-                    <div className="card-actions justify-end">
-                    <Link to={`/details/${_id}`}><button className="btn bg-[#e4bb55] text-[#0e191b] border-none">Details</button></Link>
-                    <button onClick={() =>handleWishlist(_id)} className="btn bg-[#e4bb55] text-[#0e191b] border-none">Wishlist</button>
+        <div className="max-w-xl mx-auto">
+            <div className="bg-[#1C4C5C] text-white mb-8 w-full shadow-xl rounded-lg overflow-hidden">
+                <img src={img} className="w-full h-auto" alt={title} />
+                <div className="p-4">
+                    <h2 className="text-xl font-bold mb-2">{title}</h2>
+                    <p className="mb-2">{shortDescription}</p>
+                    <p className="mb-2">Category: {category}</p>
+                    <div className="flex justify-end">
+                        <Link to={`/details/${_id}`} className="btn bg-[#e4bb55] text-[#0e191b] border-none mr-2">Details</Link>
+                        <button onClick={handleWishlist} className="btn bg-[#e4bb55] text-[#0e191b] border-none">Wishlist</button>
                     </div>
                 </div>
             </div>
         </div>
     );
 };
+
 AllBlog.propTypes = {
-    blog: PropTypes.object
+    blog: PropTypes.object.isRequired
 }
+
 export default AllBlog;

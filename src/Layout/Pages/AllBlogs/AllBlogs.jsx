@@ -1,43 +1,74 @@
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-dropdown-select";
-import { useLoaderData } from "react-router-dom";
 import AllBlog from "./AllBlog";
-import { AuthContext } from "../../../Context/AuthProvider";
+import axios from "axios";
 
 const AllBlogs = () => {
     const [inputCategory, setInputCategory] = useState(null);
-    const blogs = useLoaderData();
-    const { user } = useContext(AuthContext);
+    const [searchTitle, setSearchTitle] = useState("");
+    const [blogs, setBlogs] = useState([]);
     const options = [
-        { value: 1, label: 'travel' },
-        { value: 2, label: 'food' },
-        { value: 3, label: 'sports' },
+        { value: 'travel', label: 'Travel' },
+        { value: 'food', label: 'Food' },
+        { value: 'sports', label: 'Sports' },
     ];
 
-    const handleCategoryChange = (values) => {
-        const selectedLabel = values.map((option) => option.label)[0]; 
-        setInputCategory(selectedLabel);
-    };
+    // Fetch all blogs from the API
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/blogs');
+                setBlogs(response.data);
+            } catch (error) {
+                console.error('Error fetching blogs:', error);
+            }
+        };
+
+        fetchBlogs();
+    }, []);
 
     // Filter blogs based on selected category
     const filteredBlogs = inputCategory ? blogs.filter(blog => blog.category === inputCategory) : blogs;
 
-    const userBlogs = filteredBlogs.filter(blog => blog.email === user.email);
+    // Filter blogs based on search title
+    const searchedBlogs = searchTitle ? filteredBlogs.filter(blog => blog.title.toLowerCase().includes(searchTitle.toLowerCase())) : filteredBlogs;
+
+    // Filter user's blogs
+    const userBlogs = searchedBlogs.filter(blog => blog.email === blogs.email);
+
+    const handleCategoryChange = (values) => {
+        const selectedValue = values.length > 0 ? values[0].value : null;
+        setInputCategory(selectedValue);
+    };
+
+    const handleSearchChange = (event) => {
+        setSearchTitle(event.target.value);
+    };
 
     return (
         <div className="bg-[#ddd0b0] p-16">
             <h2 className="text-3xl md:text-4xl font-bold md:font-extrabold mb-8 text-center">Your Blogs</h2>
-            <div className="text-center">
-                <div className="form-control w-fit bg-[#ddd0b0] text-center">
+            <div className=" mb-4 md:flex justify-center gap-5">
+                <div className="form-control w-fit bg-[#ddd0b0] text-center mb-4">
                     <Select
-                        className='input'
+                        className='input bg-gray-100'
                         options={options}
-                        value={inputCategory ? [{ label: inputCategory }] : null}
+                        value={inputCategory ? [{ value: inputCategory, label: inputCategory }] : null}
                         onChange={handleCategoryChange}
+                        placeholder="Select Category"
+                    />
+                </div>
+                <div className="form-control w-fit bg-[#ddd0b0] text-center">
+                    <input
+                        className="input bg-gray-100"
+                        type="text"
+                        value={searchTitle}
+                        onChange={handleSearchChange}
+                        placeholder="Search by Title"
                     />
                 </div>
             </div>
-            <div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:w-fit mx-auto">
                 {
                     userBlogs.map(blog => <AllBlog key={blog._id} blog={blog}></AllBlog>)
                 }
