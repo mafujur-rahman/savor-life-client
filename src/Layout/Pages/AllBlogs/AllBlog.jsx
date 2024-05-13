@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import { useContext } from "react";
+import { AuthContext } from "../../../Context/AuthProvider";
+
 
 const AllBlog = ({ blog }) => {
     const { _id, title, category, shortDescription, img } = blog;
-
+    const {user} = useContext(AuthContext)
     const handleWishlist = () => {
-        const newWishlist = { _id, img, title, shortDescription, category };
+        const newWishlist = { _id, img,email: user.email, title, shortDescription, category };
         // send data to the server
         fetch('http://localhost:5000/wishlist-items', {
             method: "POST",

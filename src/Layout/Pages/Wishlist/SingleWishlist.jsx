@@ -1,9 +1,39 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const SingleWishlist = ({wishlist}) => {
+    const {_id, wishlistId, title, category, shortDescription, img } = wishlist;
 
-    const { wishlistId, title, category, shortDescription, img } = wishlist;
+    const handleRemove = (_id) =>{
+        console.log(_id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, remove it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:5000/wishlist-items/${_id}`,{
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Removed!",
+                                text: "Your wishlist has been removed.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+    }
 
     return (
         <div className="max-w-xl mx-auto">
@@ -15,7 +45,7 @@ const SingleWishlist = ({wishlist}) => {
                     <p className="mb-2">Category: {category}</p>
                     <div className="flex justify-end">
                         <Link to={`/details/${wishlistId}`} className="btn bg-[#e4bb55] text-[#0e191b] border-none mr-2">Details</Link>
-                        <button  className="btn bg-red-700 text-white border-none">Remove</button>
+                        <button onClick={() => handleRemove(_id)} className="btn bg-red-700 text-white border-none">Remove</button>
                     </div>
                 </div>
             </div>

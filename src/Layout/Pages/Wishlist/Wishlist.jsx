@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import SingleWishlist from "./SingleWishlist";
+import { useEffect, useState } from "react";
+
 
 
 const Wishlist = () => {
@@ -20,7 +21,7 @@ const Wishlist = () => {
     }, []);
 
     // Filter user's wishlist
-    const userWishlists = wishlists.filter(wishlist => wishlist.email === wishlists.email);
+    const userWishlists = wishlists.filter(wishlist => wishlist.email == wishlists.email);
 
     return (
         <div className="bg-[#ddd0b0] p-16">
