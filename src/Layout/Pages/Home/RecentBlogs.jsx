@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import RecentBlog from "./RecentBlog";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const RecentBlogs = () => {
     const { data, isLoading, error } = useQuery({
@@ -10,8 +12,9 @@ const RecentBlogs = () => {
         }
     });
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>;
+    if (isLoading) return <div className=" mx-auto container"><Skeleton />
+    <Skeleton count={5} /> </div>;
+    if (error) return <div>Something went wrong</div>;
 
     console.log("Data:", data); 
 

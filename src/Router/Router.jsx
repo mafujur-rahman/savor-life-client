@@ -7,11 +7,15 @@ import LogIn from "../Layout/Pages/LogIn/LogIn";
 import Register from "../Layout/Pages/Register/Register";
 import AddBlog from "../Layout/Pages/AddBlog/AddBlog";
 import Details from "../Layout/Pages/Details/Details";
+import Wishlist from "../Layout/Pages/Wishlist/Wishlist";
+import ErrorPage from "../Layout/Pages/ErrorPage";
+import AllBlogs from "../Layout/Pages/AllBlogs/AllBlogs";
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root></Root>,
+      errorElement:<ErrorPage></ErrorPage>,
       children:[
         {
             path:'/',
@@ -33,6 +37,15 @@ import Details from "../Layout/Pages/Details/Details";
           path:"/details/:id",
           element:<Details></Details>,
           loader: ({params})=>fetch(`http://localhost:5000/blogs/${params.id}`),
+        },
+        {
+          path:"/wishlist",
+          element: <Wishlist></Wishlist>,
+        },
+        {
+          path:"/all-blogs",
+          element:<AllBlogs></AllBlogs>,
+          loader: () => fetch('http://localhost:5000/blogs'),
         }
       ]
     },

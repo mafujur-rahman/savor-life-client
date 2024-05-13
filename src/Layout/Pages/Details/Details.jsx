@@ -12,7 +12,7 @@ const Details = () => {
 
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ['comments'],
+        queryKey: ['comment'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/comments');
             return res.json();
@@ -21,7 +21,6 @@ const Details = () => {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
-    console.log("Data:", data);
 
     if (!blog) {
         return <div>Loading...</div>;
@@ -29,38 +28,44 @@ const Details = () => {
 
     const { _id, title, category, shortDescription, longDescription, img, email } = blog;
 
-    const filteredComments = data.filter(data => data._id == _id);
+    const filteredComments = data.filter(data => data.blogId == _id);
 
 
 
     const handleComment = () => {
-
-
         if (user.email !== email) {
             const userName = user.displayName;
             const userImg = user.photoURL;
-            const newComment = { _id, userName, userImg, comment }
+            const newComment = {  blogId: _id, userName, userImg, comment }; 
             console.log(newComment);
+    
             // send data to the server
             fetch('http://localhost:5000/comments', {
                 method: "POST",
                 headers: {
-                    'content-type': 'application/json'
+                    "content-type": "application/json"
                 },
                 body: JSON.stringify(newComment)
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.insertedId) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Successfully add a new comment",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
-                })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Successfully add a new comment",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error posting comment:', error);
+                Swal.fire({
+                    icon: "error",
+                    text: "An error occurred while posting the comment",
+                });
+            });
         } else {
             Swal.fire({
                 icon: "error",
