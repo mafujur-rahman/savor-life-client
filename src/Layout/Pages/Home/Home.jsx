@@ -1,4 +1,5 @@
 import Banner from "./Banner";
+import CreateAccount from "./CreateAccount";
 import CreationTips from "./NewSections/CreationTips";
 import Newslater from "./Newslater";
 import RecentBlogs from "./RecentBlogs";
@@ -15,6 +16,7 @@ const Home = () => {
             <RecentBlogs></RecentBlogs>
             <Newslater></Newslater>
             <CreationTips></CreationTips>
+            <CreateAccount></CreateAccount>
         </div>
     );
 };
