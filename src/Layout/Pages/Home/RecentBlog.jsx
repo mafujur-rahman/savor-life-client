@@ -1,13 +1,14 @@
 
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const RecentBlog = ({ data }) => {
     const {_id,  img, title, shortDescription, category} = data;
 
     const handleWishlist =() =>{
 
-        const newWishlist = {_id,  img, title, shortDescription, category}
+        const newWishlist = {wishlistId: _id,  img, title, shortDescription, category}
          // send data to the server
          fetch('http://localhost:5000/wishlist-items', {
             method: "POST",
@@ -19,6 +20,15 @@ const RecentBlog = ({ data }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Successfully add a new comment",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
             })
     }
 
