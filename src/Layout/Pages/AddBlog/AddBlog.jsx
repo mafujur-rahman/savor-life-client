@@ -1,6 +1,7 @@
-import {  useState } from 'react';
+import {  useContext, useState } from 'react';
 import Select from 'react-dropdown-select';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../../Context/AuthProvider';
 
 
 const AddBlog = () => {
@@ -10,6 +11,7 @@ const AddBlog = () => {
     const [category, setCategory] = useState(null);
     const [shortDescription, setShortDescription] = useState('');
     const [longDescription, setLongDescription] = useState('');
+    const {user} = useContext(AuthContext)
 
     const options = [
         { value: 1, label: 'travel' },
@@ -27,7 +29,7 @@ const AddBlog = () => {
     };
 
     const handleAddBlog = () => {
-        const newBlog = { img, title, shortDescription, longDescription, category, email };
+        const newBlog = { img, title, shortDescription, longDescription, category, email, ownerName: user.displayName, ownerPhoto: user.photoURL };
         console.log(newBlog);
 
         // send data to the server

@@ -10,6 +10,7 @@ import Details from "../Layout/Pages/Details/Details";
 import Wishlist from "../Layout/Pages/Wishlist/Wishlist";
 import ErrorPage from "../Layout/Pages/ErrorPage";
 import AllBlogs from "../Layout/Pages/AllBlogs/AllBlogs";
+import FeaturedBlogs from "../Layout/Pages/FeaturedBlogs/FeaturedBlogs";
 
   const router = createBrowserRouter([
     {
@@ -46,6 +47,11 @@ import AllBlogs from "../Layout/Pages/AllBlogs/AllBlogs";
           path:"/all-blogs",
           element:<AllBlogs></AllBlogs>,
           loader: () => fetch('http://localhost:5000/blogs'),
+        },
+        {
+          path:"/featured-blogs",
+          element:<FeaturedBlogs></FeaturedBlogs>
+          
         }
       ]
     },
