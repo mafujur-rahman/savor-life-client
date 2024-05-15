@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { useContext } from "react";
 import { AuthContext } from "../../../Context/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const AllBlog = ({ blog }) => {
@@ -20,6 +21,15 @@ const AllBlog = ({ blog }) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Successfully add blog to wishlist",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
             })
     }
 

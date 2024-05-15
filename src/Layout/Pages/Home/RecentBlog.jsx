@@ -25,7 +25,7 @@ const RecentBlog = ({ data }) => {
                 if (data.insertedId) {
                     Swal.fire({
                         icon: "success",
-                        title: "Successfully add a new comment",
+                        title: "Successfully add blog to wishlist",
                         showConfirmButton: false,
                         timer: 1500
                     });
