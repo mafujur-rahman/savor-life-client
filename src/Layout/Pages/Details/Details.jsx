@@ -13,7 +13,7 @@ const Details = () => {
     const { data: comments, isLoading, error } = useQuery({
         queryKey: ['comment'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/comments');
+            const res = await fetch('https://savor-life-server-side.vercel.app/comments');
             return res.json();
         }
     });
@@ -36,7 +36,7 @@ const Details = () => {
             const newComment = { blogId: _id, userName, userImg, comment };
 
             // send data to the server
-            fetch('http://localhost:5000/comments', {
+            fetch('https://savor-life-server-side.vercel.app/comments', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -45,7 +45,7 @@ const Details = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     if (data.insertedId) {
                         Swal.fire({
                             icon: "success",

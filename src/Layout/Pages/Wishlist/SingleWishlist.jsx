@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const SingleWishlist = ({wishlist}) => {
+const SingleWishlist = ({wishlist, onRemove}) => {
     const {_id, wishlistId, title, category, shortDescription, img } = wishlist;
 
     const handleRemove = (_id) =>{
-        console.log(_id);
+        // console.log(_id);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -18,7 +18,7 @@ const SingleWishlist = ({wishlist}) => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                fetch(`http://localhost:5000/wishlist-items/${_id}`,{
+                fetch(`https://savor-life-server-side.vercel.app/wishlist-items/${_id}`,{
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -29,6 +29,7 @@ const SingleWishlist = ({wishlist}) => {
                                 text: "Your wishlist has been removed.",
                                 icon: "success"
                             });
+                            onRemove(_id);
                         }
                     })
             }
@@ -52,7 +53,10 @@ const SingleWishlist = ({wishlist}) => {
         </div>
     );
 };
+
 SingleWishlist.propTypes = {
-    wishlist: PropTypes.object.isRequired
-}
+    wishlist: PropTypes.object.isRequired,
+    onRemove: PropTypes.func.isRequired
+};
+
 export default SingleWishlist;

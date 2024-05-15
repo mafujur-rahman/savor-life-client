@@ -7,7 +7,6 @@ import { AuthContext } from '../../../Context/AuthProvider';
 const AddBlog = () => {
     const [title, setTitle] = useState('');
     const [img, setImg] = useState('');
-    const [email, setEmail] = useState('');
     const [category, setCategory] = useState(null);
     const [shortDescription, setShortDescription] = useState('');
     const [longDescription, setLongDescription] = useState('');
@@ -18,22 +17,30 @@ const AddBlog = () => {
         { value: 2, label: 'food' },
         { value: 3, label: 'sports' },
     ];
+
+    const resetForm = () => {
+        setTitle('');
+        setImg('');
+        setCategory(null);
+        setShortDescription('');
+        setLongDescription('');
+    };
+
       // Function to check if all required fields are filled
       const areAllFieldsFilled = () => {
         return title.trim() !== '' && 
                img.trim() !== '' && 
-               email.trim() !== '' && 
                category !== null &&
                shortDescription.trim() !== '' &&
                longDescription.trim() !== '';
     };
 
     const handleAddBlog = () => {
-        const newBlog = { img, title, shortDescription, longDescription, category, email, ownerName: user.displayName, ownerPhoto: user.photoURL };
-        console.log(newBlog);
+        const newBlog = { img, title, shortDescription, longDescription, category, email: user.email, ownerName: user.displayName, ownerPhoto: user.photoURL };
+        // console.log(newBlog);
 
         // send data to the server
-        fetch('http://localhost:5000/blogs',{
+        fetch('https://savor-life-server-side.vercel.app/blogs',{
             method:"POST",
             headers:{
                 'content-type': 'application/json'
@@ -42,14 +49,16 @@ const AddBlog = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.insertedId){
                 Swal.fire({
                     icon: "success",
                     title: "Successfully add a new blog",
                     showConfirmButton: false,
                     timer: 1500
+                    
                   });
+                  resetForm()
             }
         })
     };
@@ -131,20 +140,6 @@ const AddBlog = () => {
                                     name="longDescription"
                                     value={longDescription}
                                     onChange={(e) => setLongDescription(e.target.value)}
-                                    className="input input-bordered"
-                                    required
-                                />
-                            </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">User Email</span>
-                                </label>
-                                <input
-                                    type="email"
-                                    placeholder="Blog long description"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
                                     className="input input-bordered"
                                     required
                                 />

@@ -1,15 +1,29 @@
+import { motion } from "framer-motion"
+import { fadeIn } from "../../../../variants";
 
 
 const CreationTips = () => {
     return (
         <div className="bg-[#ddd0b0] text-center py-10">
-            <h2 className="text-3xl md:text-4xl font-bold md:font-extrabold text-center">Content Creation Tips</h2>
-            <p className="my-5 text-gray-600 text-center">The goal is to uncover unique angles, insights, or solutions that resonate with <br /> your audience and set your blog apart from others in your niche.</p>
-            <div className="join join-vertical mx-auto w-fit md:w-fit lg:w-[1000px] container ">
+            <motion.div
+                variants={fadeIn('up', 0.2)}
+                initial="hidden"
+                whileInView={"show"}
+                viewport={{ once: false, amount: 0.7 }}>
+                <h2 className="text-3xl md:text-4xl font-bold md:font-extrabold text-center">Content Creation Tips</h2>
+                <p className="my-5 text-gray-600 text-center">The goal is to uncover unique angles, insights, or solutions that resonate with <br /> your audience and set your blog apart from others in your niche.</p>
+            </motion.div>
+
+            <motion.div
+                variants={fadeIn('left', 0.2)}
+                initial="hidden"
+                whileInView={"show"}
+                viewport={{ once: false, amount: 0.7 }}
+                className="join join-vertical mx-auto w-fit md:w-fit lg:w-[1000px] container ">
                 <div className="collapse collapse-arrow join-item border border-black bg-[#1C4C5C]">
                     <input type="radio" name="my-accordion-4" defaultChecked />
                     <div className="collapse-title text-xl text-white font-medium">
-                    Brainstorming Creative Content Ideas:
+                        Brainstorming Creative Content Ideas:
                     </div>
                     <div className="collapse-content text-gray-200">
                         <p>Start by understanding your audiences interests, pain points, and preferences.</p>
@@ -20,7 +34,7 @@ const CreationTips = () => {
                 <div className="collapse collapse-arrow join-item border border-black bg-[#1C4C5C]">
                     <input type="radio" name="my-accordion-4" />
                     <div className="collapse-title text-xl text-white  font-medium">
-                    Writing Compelling Headlines:
+                        Writing Compelling Headlines:
                     </div>
                     <div className="collapse-content text-gray-200">
                         <p>Use attention-grabbing words and phrases to pique curiosity and entice readers to click</p>
@@ -31,7 +45,7 @@ const CreationTips = () => {
                 <div className="collapse collapse-arrow join-item border border-black bg-[#1C4C5C]">
                     <input type="radio" name="my-accordion-4" />
                     <div className="collapse-title text-xl text-white  font-medium">
-                    Structuring Engaging Blog Posts:
+                        Structuring Engaging Blog Posts:
                     </div>
                     <div className="collapse-content text-gray-200">
                         <p>Start with a captivating introduction that hooks readers and sets the tone for the rest of the post.</p>
@@ -39,7 +53,7 @@ const CreationTips = () => {
                         <p>Use bullet points, numbered lists, and visuals to break up text and make key points stand out.</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };

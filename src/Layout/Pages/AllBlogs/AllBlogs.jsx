@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Select from "react-dropdown-select";
 import AllBlog from "./AllBlog";
 import axios from "axios";
+import { AuthContext } from "../../../Context/AuthProvider";
 
 const AllBlogs = () => {
     const [inputCategory, setInputCategory] = useState(null);
     const [searchTitle, setSearchTitle] = useState("");
     const [blogs, setBlogs] = useState([]);
+    const {user} = useContext(AuthContext)
     const options = [
         { value: 'travel', label: 'Travel' },
         { value: 'food', label: 'Food' },
@@ -17,7 +19,7 @@ const AllBlogs = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/blogs');
+                const response = await axios.get('https://savor-life-server-side.vercel.app/blogs');
                 setBlogs(response.data);
             } catch (error) {
                 console.error('Error fetching blogs:', error);
@@ -34,7 +36,7 @@ const AllBlogs = () => {
     const searchedBlogs = searchTitle ? filteredBlogs.filter(blog => blog.title.toLowerCase().includes(searchTitle.toLowerCase())) : filteredBlogs;
 
     // Filter user's blogs
-    const userBlogs = searchedBlogs.filter(blog => blog.email === blogs.email);
+    const userBlogs = searchedBlogs.filter(blog => blog.email === user.email);
 
     const handleCategoryChange = (values) => {
         const selectedValue = values.length > 0 ? values[0].value : null;

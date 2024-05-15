@@ -12,6 +12,7 @@ import ErrorPage from "../Layout/Pages/ErrorPage";
 import AllBlogs from "../Layout/Pages/AllBlogs/AllBlogs";
 import FeaturedBlogs from "../Layout/Pages/FeaturedBlogs/FeaturedBlogs";
 import UpdateBlog from "../Layout/Pages/UpdateBlog/UpdateBlog";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
   const router = createBrowserRouter([
     {
@@ -33,12 +34,12 @@ import UpdateBlog from "../Layout/Pages/UpdateBlog/UpdateBlog";
         },
         {
           path:"/add-blog",
-          element:<AddBlog></AddBlog>
+          element:<PrivateRoute><AddBlog></AddBlog></PrivateRoute>,
         },
         {
           path:"/details/:id",
-          element:<Details></Details>,
-          loader: ({params})=>fetch(`http://localhost:5000/blogs/${params.id}`),
+          element:<PrivateRoute><Details></Details></PrivateRoute>,
+          loader: ({params})=>fetch(`https://savor-life-server-side.vercel.app/blogs/${params.id}`),
         },
         {
           path:"/wishlist",
@@ -46,7 +47,7 @@ import UpdateBlog from "../Layout/Pages/UpdateBlog/UpdateBlog";
         },
         {
           path:"/all-blogs",
-          element:<AllBlogs></AllBlogs>,
+          element:<PrivateRoute><AllBlogs></AllBlogs></PrivateRoute>,
         },
         {
           path:"/featured-blogs",
@@ -54,8 +55,8 @@ import UpdateBlog from "../Layout/Pages/UpdateBlog/UpdateBlog";
         },
         {
           path:'/update-blog/:id',
-          element:<UpdateBlog></UpdateBlog>,
-          loader:({params})=>fetch(`http://localhost:5000/blogs/${params.id}`),
+          element:<PrivateRoute><UpdateBlog></UpdateBlog></PrivateRoute>,
+          loader:({params})=>fetch(`https://savor-life-server-side.vercel.app/blogs/${params.id}`),
         }
       ]
     },
