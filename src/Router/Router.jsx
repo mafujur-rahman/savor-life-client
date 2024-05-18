@@ -39,11 +39,11 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
         {
           path:"/details/:id",
           element:<PrivateRoute><Details></Details></PrivateRoute>,
-          loader: ({params})=>fetch(`https://savor-life-server-side.vercel.app/blogs/${params.id}`),
+          loader: ({params})=>fetch(`http://localhost:5000/blogs/${params.id}`),
         },
         {
           path:"/wishlist",
-          element: <Wishlist></Wishlist>,
+          element: <PrivateRoute><Wishlist></Wishlist></PrivateRoute>,
         },
         {
           path:"/all-blogs",
@@ -56,7 +56,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
         {
           path:'/update-blog/:id',
           element:<PrivateRoute><UpdateBlog></UpdateBlog></PrivateRoute>,
-          loader:({params})=>fetch(`https://savor-life-server-side.vercel.app/blogs/${params.id}`),
+          loader:({params})=>fetch(`http://localhost:5000/blogs/${params.id}`),
         }
       ]
     },

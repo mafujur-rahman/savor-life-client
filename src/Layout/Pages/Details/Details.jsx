@@ -9,12 +9,16 @@ const Details = () => {
     const { user } = useContext(AuthContext);
     const blog = useLoaderData();
     const [comment, setComment] = useState("");
+    const [comments, setComments] = useState([]);
 
-    const { data: comments, isLoading, error } = useQuery({
+    // Fetch comments using React Query
+    const { isLoading, error } = useQuery({
         queryKey: ['comment'],
         queryFn: async () => {
-            const res = await fetch('https://savor-life-server-side.vercel.app/comments');
-            return res.json();
+            const res = await fetch('http://localhost:5000/comments');
+            const data = await res.json();
+            setComments(data);
+            return data;
         }
     });
 
@@ -35,8 +39,8 @@ const Details = () => {
             const userImg = user.photoURL;
             const newComment = { blogId: _id, userName, userImg, comment };
 
-            // send data to the server
-            fetch('https://savor-life-server-side.vercel.app/comments', {
+            // Send data to the server
+            fetch('http://localhost:5000/comments', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -45,15 +49,16 @@ const Details = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    // console.log(data);
                     if (data.insertedId) {
                         Swal.fire({
                             icon: "success",
-                            title: "Successfully add a new comment",
+                            title: "Successfully added a new comment",
                             showConfirmButton: false,
                             timer: 1500
                         });
-
+                        // Update the local state with the new comment
+                        setComments(prevComments => [...prevComments, newComment]);
+                        setComment("");
                     }
                 })
                 .catch(error => {
@@ -63,8 +68,6 @@ const Details = () => {
                         text: "An error occurred while posting the comment",
                     });
                 });
-
-                
         } else {
             Swal.fire({
                 icon: "error",
@@ -111,7 +114,6 @@ const Details = () => {
                     {filteredComments.map(data => (
                         <Comment key={data._id} data={data} />
                     ))}
-                    
                 </div>
             </div>
         </div>

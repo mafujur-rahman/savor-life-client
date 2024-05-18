@@ -9,9 +9,9 @@ const AllBlog = ({ blog }) => {
     const { _id, title, category, shortDescription, img } = blog;
     const {user} = useContext(AuthContext)
     const handleWishlist = () => {
-        const newWishlist = { _id, img,email: user.email, title, shortDescription, category };
+        const newWishlist = { wishlistId: _id, img,email: user.email, title, shortDescription, category };
         // send data to the server
-        fetch('https://savor-life-server-side.vercel.app/wishlist-items', {
+        fetch('http://localhost:5000/wishlist-items', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

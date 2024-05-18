@@ -19,7 +19,7 @@ const UpdateBlog = () => {
         console.log(updatedBlog);
 
         // send to the server
-        fetch(`https://savor-life-server-side.vercel.app/blogs/${_id}`, {
+        fetch(`http://localhost:5000/blogs/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

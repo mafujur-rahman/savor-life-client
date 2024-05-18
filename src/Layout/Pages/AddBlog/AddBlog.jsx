@@ -40,7 +40,7 @@ const AddBlog = () => {
         // console.log(newBlog);
 
         // send data to the server
-        fetch('https://savor-life-server-side.vercel.app/blogs',{
+        fetch('http://localhost:5000/blogs',{
             method:"POST",
             headers:{
                 'content-type': 'application/json'

@@ -2,11 +2,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-const SingleWishlist = ({wishlist, onRemove}) => {
-    const {_id, wishlistId, title, category, shortDescription, img } = wishlist;
+const SingleWishlist = ({ wishlist, onRemove }) => {
+    const { _id, wishlistId, title, category, shortDescription, img } = wishlist;
 
-    const handleRemove = (_id) =>{
-        // console.log(_id);
+    const handleRemove = () => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -17,21 +16,38 @@ const SingleWishlist = ({wishlist, onRemove}) => {
             confirmButtonText: "Yes, remove it!"
         }).then((result) => {
             if (result.isConfirmed) {
-
-                fetch(`https://savor-life-server-side.vercel.app/wishlist-items/${_id}`,{
-                    method: 'DELETE'
+                fetch(`http://localhost:5000/wishlist-items/${_id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.deletedCount > 0) {
-                            Swal.fire({
-                                title: "Removed!",
-                                text: "Your wishlist has been removed.",
-                                icon: "success"
-                            });
-                            onRemove(_id);
-                        }
-                    })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        Swal.fire({
+                            title: "Removed!",
+                            text: "Your wishlist has been removed.",
+                            icon: "success"
+                        });
+                        onRemove(_id); // Update the parent state
+                    } else {
+                        throw new Error('Delete operation failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting wishlist item:', error);
+                    Swal.fire({
+                        title: "Error!",
+                        text: "An error occurred while removing the item.",
+                        icon: "error"
+                    });
+                });
             }
         });
     }
@@ -46,7 +62,7 @@ const SingleWishlist = ({wishlist, onRemove}) => {
                     <p className="mb-2">Category: {category}</p>
                     <div className="flex justify-end">
                         <Link to={`/details/${wishlistId}`} className="btn bg-[#e4bb55] text-[#0e191b] border-none mr-2">Details</Link>
-                        <button onClick={() => handleRemove(_id)} className="btn bg-red-700 text-white border-none">Remove</button>
+                        <button onClick={handleRemove} className="btn bg-red-700 text-white border-none">Remove</button>
                     </div>
                 </div>
             </div>
