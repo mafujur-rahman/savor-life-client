@@ -17,7 +17,7 @@ const AllBlogs = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/blogs');
+                const response = await axios.get('https://savor-life-server-side.vercel.app/blogs');
                 setBlogs(response.data);
             } catch (error) {
                 console.error('Error fetching blogs:', error);

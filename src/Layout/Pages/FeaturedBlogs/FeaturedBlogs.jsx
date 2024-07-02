@@ -8,7 +8,7 @@ const FeaturedBlogsPage = () => {
         const fetchTopBlogs = async () => {
             try {
                 // Fetch top 10 blogs from the API
-                const response = await axios.get('http://localhost:5000/top-blogs');
+                const response = await axios.get('https://savor-life-server-side.vercel.app/top-blogs');
                 setTopBlogs(response.data);
             } catch (error) {
                 console.error('Error fetching top blogs:', error);

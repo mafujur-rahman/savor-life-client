@@ -8,7 +8,7 @@ const Wishlist = () => {
     useEffect(() => {
         const fetchWishlists = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/wishlist-items');
+                const response = await axios.get('https://savor-life-server-side.vercel.app/wishlist-items');
                 setWishlists(response.data);
             } catch (error) {
                 console.error('Error fetching wishlists:', error);

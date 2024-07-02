@@ -9,7 +9,7 @@ const RecentBlogs = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['blogs'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/blogs');
+            const res = await fetch('https://savor-life-server-side.vercel.app/blogs');
             return res.json();
         }
     });

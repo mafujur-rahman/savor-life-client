@@ -12,7 +12,7 @@ const RecentBlog = ({ data }) => {
 
         const newWishlist = { wishlistId: _id, img, title, shortDescription, category }
         // send data to the server
-        fetch('http://localhost:5000/wishlist-items', {
+        fetch('https://savor-life-server-side.vercel.app/wishlist-items', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

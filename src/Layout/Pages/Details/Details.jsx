@@ -15,7 +15,7 @@ const Details = () => {
     const { isLoading, error } = useQuery({
         queryKey: ['comment'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/comments');
+            const res = await fetch('https://savor-life-server-side.vercel.app/comments');
             const data = await res.json();
             setComments(data);
             return data;
@@ -40,7 +40,7 @@ const Details = () => {
             const newComment = { blogId: _id, userName, userImg, comment };
 
             // Send data to the server
-            fetch('http://localhost:5000/comments', {
+            fetch('https://savor-life-server-side.vercel.app/comments', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

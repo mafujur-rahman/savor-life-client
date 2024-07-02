@@ -16,7 +16,7 @@ const SingleWishlist = ({ wishlist, onRemove }) => {
             confirmButtonText: "Yes, remove it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/wishlist-items/${_id}`, {
+                fetch(`https://savor-life-server-side.vercel.app/wishlist-items/${_id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
